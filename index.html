@@ -238,7 +238,22 @@
     $("overviewCourses").innerHTML=data.courses.length?data.courses.slice(0,4).map(c=>progressMarkup(c.name,c.progress)).join(""):'<div class="empty">No courses yet. Add your first course.</div>';
     $("overviewTasks").innerHTML=data.tasks.filter(t=>!t.done).slice(0,5).map(t=>`<div class="task"><input type="checkbox" data-task="${t.id}"><span class="task-name">${escapeHTML(t.name)}</span><span class="tag">Pending</span></div>`).join("")||'<div class="empty">You have no pending tasks.</div>';
     $("overviewGoals").innerHTML=data.goals.slice(0,4).map(g=>`<div class="task"><span class="task-name">${escapeHTML(g.name)}</span><span class="tag ${g.done?"done":""}">${g.done?"Achieved":"In progress"}</span></div>`).join("")||'<div class="empty">No goals added yet.</div>';
-    $("courseList").innerHTML=data.courses.map(c=>`<div class="course-card"><div class="panel-head"><div class="course-title">${escapeHTML(c.name)}</div><button class="small-btn" data-course-edit="${c.id}">Update progress</button></div>${progressMarkup("Completion",c.progress)}</div>`).join("")||'<div class="empty">No courses added yet.</div>';
+    $("courseList").innerHTML=data.courses.map(c=>`
+  <div class="course-card">
+    <div class="panel-head">
+      <div class="course-title">${escapeHTML(c.name)}</div>
+      <div style="display:flex;gap:8px">
+        <button class="small-btn" data-course-edit="${c.id}">
+          Update progress
+        </button>
+        <button class="small-btn" data-delete-course="${c.id}" style="color:#d84d5b">
+          Delete
+        </button>
+      </div>
+    </div>
+    ${progressMarkup("Completion",c.progress)}
+  </div>
+`).join("")||'<div class="empty">No courses added yet.</div>';
     $("taskList").innerHTML=data.tasks.map(t=>`<div class="task ${t.done?"done":""}"><input type="checkbox" data-task="${t.id}" ${t.done?"checked":""}><span class="task-name">${escapeHTML(t.name)}</span><span class="muted">${t.due?new Date(t.due+"T00:00:00").toLocaleDateString():"No due date"}</span><button class="small-btn" data-delete-task="${t.id}">Delete</button></div>`).join("")||'<div class="empty">No tasks yet. Add a task to get started.</div>';
     $("sessionList").innerHTML=data.sessions.map(s=>`<div class="task"><span class="task-name">${escapeHTML(s.name)}</span><span class="muted">${s.minutes} min · ${new Date(s.date).toLocaleDateString()}</span></div>`).join("")||'<div class="empty">No study sessions recorded yet.</div>';
     $("goalList").innerHTML=data.goals.map(g=>`<div class="task ${g.done?"done":""}"><input type="checkbox" data-goal="${g.id}" ${g.done?"checked":""}><span class="task-name">${escapeHTML(g.name)}</span><span class="muted">${g.date||"No target date"}</span></div>`).join("")||'<div class="empty">No goals yet. Add your first academic goal.</div>';
