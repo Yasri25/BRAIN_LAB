@@ -239,10 +239,38 @@
     try{const {data:result,error}=await sb.auth.signInWithPassword({email,password});if(error)throw error;await showApp(result.user)}
     catch(e){showError("loginError",e.message||"Could not sign in.")}finally{setBusy("loginBtn",false)}
   }
-  async function signOut(){if(sb)await sb.auth.signOut();currentUser=null;data=emptyData();showAuth()}
+  if(sb)await sb.auth.signOut();currentUser=null;data=emptyData();showAuth()}
   $("signupBtn").onclick=signUp;$("loginBtn").onclick=signIn;$("logoutBtn").onclick=signOut;
 
-  function go(section){document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));$(section).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.section===section));$("pageTitle").textContent=({overview:"Overview",courses:"My courses",tasks:"My tasks",planner:"Study planner",goals:"Academic goals",resources:"Academic resources"})[section]}
+ 
+async function signIn(){
+  const email=$("loginEmail").value.trim();
+  const password=$("loginPassword").value;
+
+  if(!email||!password){
+    showError("loginError","Enter your email and password.");
+    return;
+  }
+
+  if(!sb){
+    showError("loginError","Supabase is not configured. Check the project URL and publishable key.");
+    return;
+  }
+
+  setBusy("loginBtn",true,"Signing in…");
+  showError("loginError","");
+
+  try{
+    const {data:result,error}=await sb.auth.signInWithPassword({email,password});
+    if(error)throw error;
+    await showApp(result.user);
+  }catch(e){
+    showError("loginError",e.message||"Could not sign in.");
+  }finally{
+    setBusy("loginBtn",false);
+  }
+}
+ function go(section){document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));$(section).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.section===section));$("pageTitle").textContent=({overview:"Overview",courses:"My courses",tasks:"My tasks",planner:"Study planner",goals:"Academic goals",resources:"Academic resources"})[section]}
   document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>go(b.dataset.section));document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
   document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>$(b.dataset.close).classList.add("hidden"));
   function openForm(id){$(id).classList.remove("hidden")}
