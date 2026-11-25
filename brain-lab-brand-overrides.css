@@ -1,0 +1,107 @@
+/* BRAIN LAB — brand-only CSS overrides
+   Add this block immediately before </style> in the HTML you supplied.
+   It changes only colours and typography; it does not alter layout or JavaScript. */
+
+:root {
+  --blue: #343e7b;
+  --blue2: #a4adc7;
+  --navy: #343e7b;
+  --ink: #343e7b;
+  --muted: #68718f;
+  --line: #e5e4e4;
+  --bg: #fefefe;
+  --white: #fefefe;
+  --green: #59bd93;
+  --orange: #f69b63;
+  --soft-blue: #a4adc7;
+  --red: #b94b57;
+  --shadow: 0 12px 35px rgba(52, 62, 123, .08);
+}
+
+/* Typography: keep the existing sizes and layout, change the font only. */
+html, body, button, input, select, textarea {
+  font-family: "Cormorant Garamond", serif !important;
+}
+.brand,
+.visual-copy h1,
+.auth-card h2,
+.side-brand,
+.top-title,
+.welcome h1,
+.stat strong,
+.panel h3,
+.resource-card h3,
+.landing-logo,
+.landing-hero h1,
+.landing-section-heading h2,
+.feature-card h3,
+.step-card h3,
+.landing-cta h2,
+.visual-window-top,
+.visual-greeting,
+.visual-stat strong {
+  font-family: "Cormorant Garamond", serif !important;
+}
+
+/* Main surfaces */
+body, .landing-page { background: #fefefe !important; color: #343e7b !important; }
+.auth-wrap, .auth-panel, .auth-card, .main, .topbar,
+.stat, .panel, .resource-card, .feature-card, .step-card,
+.visual-window, .landing-nav { background-color: #fefefe !important; }
+.steps-section { background: #e5e4e4 !important; }
+.landing-section-heading p,
+.sub, .muted, .welcome p, .resource-card p,
+.landing-footer, .landing-intro { color: #68718f !important; }
+
+/* Navy identity and landing/authentication hero surfaces */
+.sidebar { background: #343e7b !important; }
+.auth-visual,
+.landing-hero,
+.landing-cta-inner {
+  background: linear-gradient(135deg, #343e7b 0%, #343e7b 68%, #a4adc7 100%) !important;
+}
+.brand span, .side-brand span, .landing-logo span { color: #f69b63 !important; }
+.visual-copy p, .visual-foot, .landing-hero p,
+.landing-eyebrow, .landing-cta p { color: #e5e4e4 !important; }
+
+/* Primary actions and links */
+.primary, .landing-btn.primary {
+  background: #343e7b !important;
+  border-color: #343e7b !important;
+  color: #fefefe !important;
+}
+.primary:hover, .landing-btn.primary:hover { background: #293365 !important; }
+.link, .small-btn, .landing-logo, .landing-btn:not(.primary) { color: #343e7b !important; }
+.landing-hero .landing-btn:not(.primary) {
+  background: rgba(254, 254, 254, .10) !important;
+  border-color: rgba(254, 254, 254, .55) !important;
+  color: #fefefe !important;
+}
+
+/* Borders, fields and neutral UI */
+.field input, .inline-form input, .inline-form select,
+.small-btn, .landing-btn, .feature-card, .step-card,
+.course-card, .resource-card, .landing-visual,
+.stat, .panel { border-color: #e5e4e4 !important; }
+.field input:focus, .inline-form input:focus, .inline-form select:focus {
+  border-color: #a4adc7 !important;
+  box-shadow: 0 0 0 3px rgba(164, 173, 199, .22) !important;
+}
+.notice, .resource-note { background: #e5e4e4 !important; border-color: #a4adc7 !important; color: #343e7b !important; }
+.stat-icon, .resource-icon, .visual-stat, .visual-progress,
+.step-number { background: #e5e4e4 !important; color: #343e7b !important; }
+.avatar { background: #a4adc7 !important; color: #343e7b !important; }
+.nav button.active, .nav button:hover { background: rgba(164, 173, 199, .24) !important; color: #fefefe !important; }
+.nav button { color: #e5e4e4 !important; }
+.nav-label, .side-bottom { color: #a4adc7 !important; }
+
+/* Progress, status and learning indicators */
+.bar { background: #e5e4e4 !important; }
+.bar i, .visual-progress-bar i {
+  background: linear-gradient(90deg, #343e7b, #a4adc7) !important;
+}
+.task input { accent-color: #343e7b !important; }
+.tag:not(.done) { background: rgba(246, 155, 99, .20) !important; color: #995323 !important; }
+.tag.done { background: rgba(89, 189, 147, .20) !important; color: #287b5d !important; }
+.error { color: #b94b57 !important; }
+.toast { background: #343e7b !important; color: #fefefe !important; }
