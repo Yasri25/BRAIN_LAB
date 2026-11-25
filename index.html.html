@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Brain Lab helps students organise courses, manage academic tasks, plan study sessions, set learning goals and track academic progress in one place.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Brain Lab">
+  <meta name="theme-color" content="#343e7b">
+  <link rel="canonical" href="https://yasri25.github.io/UNI-HUB/">
+
+  <title>Brain Lab | Student Learning & Academic Progress Platform</title>
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Brain Lab">
+  <meta property="og:title" content="Brain Lab | Learn. Track. Improve.">
+  <meta property="og:description" content="Organise your courses, manage academic tasks, plan study sessions and track your learning progress with Brain Lab.">
+  <meta property="og:url" content="https://yasri25.github.io/UNI-HUB/">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Brain Lab | Learn. Track. Improve.">
+  <meta name="twitter:description" content="A student-focused platform for managing courses, tasks, study plans, goals and academic progress.">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Brain Lab",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "url": "https://yasri25.github.io/UNI-HUB/",
+    "description": "Brain Lab helps students organise courses, manage academic tasks, plan study sessions, set learning goals and track academic progress.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root{--blue:#343e7b;--blue2:#a4adc7;--navy:#343e7b;--ink:#343e7b;--muted:#68718f;--line:#e5e4e4;--bg:#fefefe;--white:#fefefe;--green:#59bd93;--orange:#f69b63;--soft-blue:#a4adc7;--red:#b94b57;--shadow:0 12px 35px rgba(52,62,123,.08)}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Cormorant Garamond",sans-serif}button,input{font:inherit}button{cursor:pointer}
+    .auth-wrap{min-height:100vh;display:grid;grid-template-columns:1.05fr .95fr;background:#fff}.auth-visual{background:linear-gradient(145deg,#343e7b,#343e7b 65%,#a4adc7);color:white;padding:7vw;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}.auth-visual:after{content:"";position:absolute;width:520px;height:520px;border:1px solid #ffffff26;border-radius:50%;right:-170px;bottom:-210px;box-shadow:0 0 0 55px #ffffff0d,0 0 0 110px #ffffff0a}.brand{font:800 19px "Cormorant Garamond";letter-spacing:.5px}.brand span{color:#a9c7ff}.visual-copy{position:relative;z-index:1;max-width:510px}.visual-copy h1{font:800 clamp(36px,4.5vw,62px)/1.08 "Cormorant Garamond";margin:0 0 20px}.visual-copy p{font-size:16px;line-height:1.7;color:#dce7ff;max-width:450px}.visual-foot{color:#c8d8ff;font-size:12px;z-index:1}.auth-panel{display:flex;align-items:center;justify-content:center;padding:35px}.auth-card{width:min(420px,100%)}.auth-card h2{font:800 30px "Cormorant Garamond";margin:0 0 8px}.sub{color:var(--muted);margin:0 0 28px}.field{display:block;margin:17px 0}.field span{display:block;font-size:13px;font-weight:700;margin-bottom:8px}.field input{width:100%;border:1px solid #e5e4e4;border-radius:10px;padding:13px 14px;outline:none}.field input:focus{border-color:var(--blue2);box-shadow:0 0 0 3px #a4adc71a}.primary{border:0;background:var(--blue);color:#fff;border-radius:10px;padding:13px 17px;font-weight:700}.primary:hover{background:#343e7b}.full{width:100%}.auth-switch{text-align:center;color:var(--muted);font-size:13px;margin-top:20px}.link{color:var(--blue);font-weight:700;border:0;background:none;padding:0}.notice{font-size:12px;color:#68758d;background:#f4f4f7;border-radius:9px;padding:11px 13px;line-height:1.5;margin-top:17px}.error{color:var(--red);font-size:13px;min-height:18px;margin-top:10px}.hidden{display:none!important}
+    .app{min-height:100vh;display:grid;grid-template-columns:250px 1fr}.sidebar{background:var(--navy);color:#d8e1f3;padding:25px 16px;display:flex;flex-direction:column}.side-brand{font:800 18px "Cormorant Garamond";color:#fff;padding:4px 12px 32px}.side-brand span{color:#76a3ff}.nav-label{font-size:10px;text-transform:uppercase;letter-spacing:1.4px;color:#8391ae;padding:0 12px 10px}.nav button{width:100%;border:0;background:none;color:#b9c5dc;padding:12px;border-radius:9px;text-align:left;display:flex;gap:12px;align-items:center;margin:3px 0;font-weight:600;font-size:13px}.nav button.active,.nav button:hover{background:#24375d;color:#fff}.nav .ico{width:19px;text-align:center}.side-bottom{margin-top:auto;border-top:1px solid #2a3855;padding:18px 10px 0;font-size:12px;color:#8e9bb4}.main{min-width:0}.topbar{height:76px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 34px}.top-title{font:700 16px "Cormorant Garamond"}.profile{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700}.avatar{width:34px;height:34px;background:#e5e4e4;color:var(--blue);border-radius:50%;display:grid;place-items:center;font-weight:800}.content{padding:30px 34px;max-width:1500px;margin:auto}.welcome{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:25px;gap:15px}.welcome h1{font:800 27px "Cormorant Garamond";margin:0 0 7px}.welcome p{color:var(--muted);margin:0;font-size:14px}.date{font-size:12px;color:var(--muted)}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}.stat,.panel{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}.stat{padding:19px}.stat-top{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;font-weight:600}.stat-icon{width:34px;height:34px;border-radius:10px;background:#f0f0f3;color:var(--blue);display:grid;place-items:center;font-size:17px}.stat strong{display:block;font:800 27px "Cormorant Garamond";margin:13px 0 4px}.stat small{color:var(--muted);font-size:11px}.grid-main{display:grid;grid-template-columns:1.45fr 1fr;gap:18px}.panel{padding:21px;margin-bottom:18px}.panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.panel h3{font:700 15px "Cormorant Garamond";margin:0}.muted{color:var(--muted);font-size:12px}.progress-row{margin:16px 0}.progress-meta{display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px}.bar{height:8px;background:#e5e4e4;border-radius:20px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),#6b9aff);border-radius:20px}.task{display:flex;align-items:center;gap:11px;padding:12px 0;border-bottom:1px solid #e5e4e4}.task:last-child{border:0}.task input{accent-color:var(--blue);width:16px;height:16px}.task-name{font-size:13px;font-weight:600;flex:1}.task.done .task-name{text-decoration:line-through;color:#9aa4b5}.tag{font-size:10px;padding:5px 8px;border-radius:20px;background:#fff0e5;color:#b96b35}.tag.done{background:#eaf7f1;color:#328c6a}.small-btn{border:1px solid #e5e4e4;background:white;color:var(--blue);border-radius:8px;padding:8px 11px;font-size:11px;font-weight:700}.small-btn:hover{background:#f4f4f7}.course-card{padding:13px;border:1px solid var(--line);border-radius:11px;margin:10px 0}.course-title{font-size:13px;font-weight:700;margin-bottom:10px}.empty{color:var(--muted);font-size:13px;padding:18px 0;text-align:center}.section{display:none}.section.active{display:block}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.inline-form input,.inline-form select{width:100%;padding:11px;border:1px solid #e5e4e4;border-radius:9px;margin:7px 0 13px}.inline-form label{font-size:12px;font-weight:700}.table{width:100%;border-collapse:collapse;font-size:12px}.table th,.table td{text-align:left;padding:12px 9px;border-bottom:1px solid #e5e4e4}.table th{color:var(--muted);font-weight:600}.toast{position:fixed;right:24px;bottom:24px;background:#142344;color:white;padding:13px 17px;border-radius:10px;box-shadow:var(--shadow);font-size:13px;z-index:10}
+
+    .resource-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .resource-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;min-height:210px}
+    .resource-top{display:flex;align-items:center;gap:12px;margin-bottom:13px}
+    .resource-icon{width:44px;height:44px;border-radius:12px;background:#f0f0f3;display:grid;place-items:center;font-size:23px;flex:none}
+    .resource-card h3{font:700 15px "Cormorant Garamond";margin:0 0 4px}
+    .resource-card p{font-size:13px;line-height:1.6;color:var(--muted);margin:0 0 17px}
+    .resource-card .small-btn{margin-top:auto;align-self:flex-start;text-decoration:none;display:inline-flex;align-items:center;gap:7px}
+    .resource-note{background:#f4f4f7;border:1px solid #e2eaff;border-radius:10px;padding:13px 15px;color:#53627e;font-size:12px;line-height:1.6;margin-bottom:18px}
+    @media(max-width:950px){.app{grid-template-columns:75px 1fr}.sidebar{padding:22px 9px}.side-brand{font-size:0;padding:4px 10px 30px}.side-brand:after{content:"BL";font-size:17px}.nav-label{display:none}.nav button{justify-content:center;font-size:0}.nav .ico{font-size:17px}.side-bottom{font-size:0}.stats{grid-template-columns:repeat(2,1fr)}.grid-main{grid-template-columns:1fr}}
+    @media(max-width:650px){.resource-grid{grid-template-columns:1fr}}
+    @media(max-width:650px){.auth-wrap{grid-template-columns:1fr}.auth-visual{display:none}.auth-panel{min-height:100vh;padding:25px}.topbar{padding:0 17px;height:65px}.content{padding:22px 16px}.welcome{align-items:flex-start;flex-direction:column}.welcome h1{font-size:23px}.stats{gap:10px}.stat{padding:14px}.stat strong{font-size:23px}.panel{padding:16px}.form-row{grid-template-columns:1fr}.date{display:none}}
+
+    /* BRAIN LAB brand system — selected font and approved palette */
+    body,button,input,select,textarea{font-family:"Cormorant Garamond",serif}
+    .brand,.side-brand,.top-title,.visual-copy h1,.auth-card h2,.welcome h1,.panel h3,.resource-card h3{font-family:"Cormorant Garamond",serif}
+    .brand,.side-brand{font-weight:700;letter-spacing:.3px}
+    .visual-copy h1{font-weight:700;line-height:1.04}
+    .auth-card h2,.welcome h1{font-weight:700}
+    .primary{background:var(--blue)}
+    .primary:hover{background:#293365}
+    .small-btn,.link{color:var(--blue)}
+    .nav button.active,.nav button:hover{background:rgba(164,173,199,.22)}
+    .stat-icon,.resource-icon,.avatar{background:#e5e4e4;color:var(--blue)}
+    .bar i{background:linear-gradient(90deg,#343e7b,#a4adc7)}
+    .task input{accent-color:#343e7b}
+    .tag.done{background:rgba(89,189,147,.18);color:#328c6a}
+    .tag:not(.done){background:rgba(246,155,99,.18);color:#a85d2e}
+    .auth-visual{background:linear-gradient(145deg,#343e7b,#343e7b 65%,#a4adc7)}
+    .auth-card .brand span,.brand span,.side-brand span{color:#f69b63}
+    @media(max-width:650px){.auth-card h2{font-size:29px}}
+
+    /* Public landing page — visual language matches the sign-in screen */
+    .landing-wrap{min-height:100vh;display:grid;grid-template-columns:1.05fr .95fr;background:#fff}
+    .landing-visual{background:linear-gradient(145deg,#343e7b,#343e7b 65%,#a4adc7);color:#fff;padding:7vw;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+    .landing-visual:after{content:"";position:absolute;width:520px;height:520px;border:1px solid #ffffff26;border-radius:50%;right:-170px;bottom:-210px;box-shadow:0 0 0 55px #ffffff0d,0 0 0 110px #ffffff0a}
+    .landing-brand{font:700 22px "Cormorant Garamond",serif;letter-spacing:.5px;position:relative;z-index:1}
+    .landing-brand span{color:#f69b63}
+    .landing-copy{position:relative;z-index:1;max-width:540px}
+    .landing-kicker{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#dce3f6;margin-bottom:18px}
+    .landing-copy h1{font:700 clamp(42px,5vw,68px)/1.02 "Cormorant Garamond",serif;margin:0 0 22px}
+    .landing-copy p{font-size:17px;line-height:1.75;color:#e2e7f7;max-width:460px;margin:0}
+    .landing-foot{font-size:12px;color:#d0d8ee;position:relative;z-index:1}
+    .landing-panel{display:flex;align-items:center;justify-content:center;padding:48px 6vw;background:#fff}
+    .landing-content{width:min(510px,100%)}
+    .landing-topline{display:flex;justify-content:space-between;align-items:center;margin-bottom:48px;color:#68718f;font-size:13px}
+    .landing-topline strong{font:700 18px "Cormorant Garamond",serif;color:#343e7b}
+    .landing-topline button{border:0;background:none;color:#343e7b;font-weight:700;cursor:pointer}
+    .landing-content h2{font:700 clamp(30px,3vw,42px)/1.12 "Cormorant Garamond",serif;color:#343e7b;margin:0 0 12px}
+    .landing-intro{font-size:15px;line-height:1.7;color:#68718f;margin:0 0 28px}
+    .landing-features{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 30px}
+    .landing-feature{border:1px solid #e5e4e4;border-radius:12px;padding:15px 14px;background:#fff}
+    .landing-feature b{display:block;color:#343e7b;font-size:15px;margin-bottom:5px}
+    .landing-feature span{font-size:12px;line-height:1.5;color:#68718f}
+    .landing-actions{display:flex;gap:12px;align-items:center}
+    .landing-actions .primary{min-width:155px}
+    .landing-login{border:1px solid #e5e4e4;background:#fff;color:#343e7b;border-radius:10px;padding:12px 22px;font-weight:700}
+    .landing-login:hover{background:#f4f4f7}
+    .auth-back{margin:0 0 24px;border:0;background:none;color:#343e7b;font-size:13px;font-weight:700;padding:0;cursor:pointer}
+    @media(max-width:760px){.landing-wrap{grid-template-columns:1fr}.landing-visual{min-height:310px;padding:34px 28px}.landing-copy h1{font-size:43px}.landing-copy p{font-size:15px}.landing-foot{margin-top:35px}.landing-panel{padding:36px 25px}.landing-topline{margin-bottom:32px}}
+    @media(max-width:420px){.landing-features{grid-template-columns:1fr 1fr;gap:8px}.landing-feature{padding:12px 10px}.landing-actions{flex-direction:column;align-items:stretch}.landing-actions .primary,.landing-login{width:100%}}
+  </style>
+</head>
+<body>
+  <main id="landingScreen" class="landing-wrap">
+    <section class="landing-visual">
+      <div class="landing-brand">BRAIN <span>LAB</span></div>
+      <div class="landing-copy">
+        <div class="landing-kicker">Your academic journey, organised</div>
+        <h1>Learn with purpose. Make progress visible.</h1>
+        <p>A focused academic workspace that helps you organise your courses, stay on top of tasks, plan study time and work towards meaningful learning goals.</p>
+      </div>
+      <div class="landing-foot">LEARN · ORGANISE · TRACK · IMPROVE</div>
+    </section>
+    <section class="landing-panel">
+      <div class="landing-content">
+        <div class="landing-topline"><strong>BRAIN LAB</strong><button type="button" id="landingLoginTop">Already have an account? Login</button></div>
+        <h2>A smarter space for your studies.</h2>
+        <p class="landing-intro">Bring your academic activities together in one simple workspace and build better study habits, one step at a time.</p>
+        <div class="landing-features">
+          <div class="landing-feature"><b>My Courses</b><span>Organise courses and monitor learning progress.</span></div>
+          <div class="landing-feature"><b>My Tasks</b><span>Keep assignments and deadlines in view.</span></div>
+          <div class="landing-feature"><b>Study Planner</b><span>Record study sessions and build consistency.</span></div>
+          <div class="landing-feature"><b>Academic Goals</b><span>Set targets and follow your achievements.</span></div>
+        </div>
+        <div class="landing-actions">
+          <button type="button" class="primary" id="landingGetStarted">Get Started</button>
+          <button type="button" class="landing-login" id="landingLogin">Login</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section id="authScreen" class="auth-wrap hidden">
+    <div class="auth-visual">
+      <div class="brand">BRAIN<span> LAB</span></div>
+      <div class="visual-copy"><h1>Make your academic progress visible.</h1><p>Set meaningful goals, stay on top of your tasks, and understand how consistently you are moving toward your academic targets.</p></div>
+      <div class="visual-foot">STUDENT PROGRESS TRACKING SYSTEM · MVP</div>
+    </div>
+    <div class="auth-panel">
+      <div class="auth-card">
+        <div class="brand" style="color:#17233b;margin-bottom:35px">BRAIN<span style="color:#f69b63"> LAB</span></div>
+        <div id="loginForm">
+          <h2>Welcome back</h2><p class="sub">Sign in to continue tracking your progress.</p>
+          <label class="field"><span>Email address</span><input id="loginEmail" type="email" placeholder="you@example.com" autocomplete="email"></label>
+          <label class="field"><span>Password</span><input id="loginPassword" type="password" placeholder="Enter your password" autocomplete="current-password"></label>
+          <button class="primary full" id="loginBtn">Sign in</button>
+          <div class="error" id="loginError"></div>
+          <div class="auth-switch">New to Brain Lab? <button class="link" id="showSignup">Create an account</button></div>
+        </div>
+        <div id="signupForm" class="hidden">
+          <h2>Create account</h2><p class="sub">Start managing your academic progress.</p>
+          <label class="field"><span>Full name</span><input id="signupName" type="text" placeholder="Your full name" autocomplete="name"></label>
+          <label class="field"><span>Email address</span><input id="signupEmail" type="email" placeholder="you@example.com" autocomplete="email"></label>
+          <label class="field"><span>Password</span><input id="signupPassword" type="password" placeholder="At least 6 characters" autocomplete="new-password"></label>
+          <button class="primary full" id="signupBtn">Create account</button>
+          <div class="error" id="signupError"></div>
+          <div class="auth-switch">Already have an account? <button class="link" id="showLogin">Sign in</button></div>
+        </div>
+        <div class="notice" id="authNotice">Demo mode is active until Supabase credentials are added. Demo accounts are stored only in this browser and are not suitable for real student data.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="appScreen" class="app hidden">
+    <aside class="sidebar">
+      <div class="side-brand">BRAIN<span> LAB</span></div>
+      <div class="nav-label">Workspace</div>
+      <nav class="nav">
+        <button class="active" data-section="overview"><span class="ico">▦</span>Overview</button>
+        <button data-section="courses"><span class="ico">▤</span>My courses</button>
+        <button data-section="tasks"><span class="ico">✓</span>My tasks</button>
+        <button data-section="planner"><span class="ico">◷</span>Study planner</button>
+        <button data-section="goals"><span class="ico">◎</span>Goals</button>
+         <button data-section="resources"><span class="ico">▧</span>Academic resources</button>
+      </nav>
+      <div class="side-bottom">Personal academic workspace<br>Version 0.1 · MVP</div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div class="top-title" id="pageTitle">Overview</div><div class="profile"><div class="avatar" id="avatar">S</div><span id="userName">Student</span><button class="small-btn" id="logoutBtn">Log out</button></div></header>
+      <div class="content">
+        <section id="overview" class="section active">
+          <div class="welcome"><div><h1 id="welcomeTitle">Good day!</h1><p>Here is your academic progress at a glance.</p></div><div class="date" id="todayDate"></div></div>
+          <div class="stats">
+            <div class="stat"><div class="stat-top">Active courses <span class="stat-icon">▤</span></div><strong id="statCourses">0</strong><small>Courses you are working on</small></div>
+            <div class="stat"><div class="stat-top">Tasks completed <span class="stat-icon">✓</span></div><strong id="statCompleted">0</strong><small id="taskSub">0 tasks in total</small></div>
+            <div class="stat"><div class="stat-top">Study time <span class="stat-icon">◷</span></div><strong id="statHours">0h</strong><small>Total recorded study time</small></div>
+            <div class="stat"><div class="stat-top">Goals achieved <span class="stat-icon">◎</span></div><strong id="statGoals">0</strong><small>Goals marked as completed</small></div>
+          </div>
+          <div class="grid-main">
+            <div>
+              <div class="panel"><div class="panel-head"><h3>Course progress</h3><button class="small-btn" data-go="courses">View courses</button></div><div id="overviewCourses"></div></div>
+              <div class="panel"><div class="panel-head"><h3>Upcoming tasks</h3><button class="small-btn" data-go="tasks">View all</button></div><div id="overviewTasks"></div></div>
+            </div>
+            <div>
+              <div class="panel"><div class="panel-head"><h3>Weekly study activity</h3><span class="muted">Hours logged</span></div><div id="weekChart" style="height:145px;display:flex;align-items:end;justify-content:space-around;gap:9px;padding:12px 5px 0"></div></div>
+              <div class="panel"><div class="panel-head"><h3>My goals</h3><button class="small-btn" data-go="goals">Manage</button></div><div id="overviewGoals"></div></div>
+            </div>
+          </div>
+        </section>
+        <section id="courses" class="section">
+          <div class="welcome"><div><h1>My courses</h1><p>Keep your learning activities organised.</p></div><button class="primary" id="addCourseOpen">+ Add course</button></div>
+          <div class="panel hidden" id="courseForm"><h3>Add a course</h3><form class="inline-form" id="courseAddForm"><div class="form-row"><div><label>Course name</label><input required id="courseName" placeholder="e.g. Database Systems"></div><div><label>Target progress (%)</label><input id="courseProgress" type="number" min="0" max="100" value="0"></div></div><button class="primary">Save course</button> <button type="button" class="small-btn" data-close="courseForm">Cancel</button></form></div>
+          <div class="panel"><div id="courseList"></div></div>
+        </section>
+        <section id="tasks" class="section">
+          <div class="welcome"><div><h1>My tasks</h1><p>Record assignments, reading and academic activities.</p></div><button class="primary" id="addTaskOpen">+ Add task</button></div>
+          <div class="panel hidden" id="taskForm"><h3>Add a task</h3><form class="inline-form" id="taskAddForm"><div class="form-row"><div><label>Task title</label><input required id="taskName" placeholder="e.g. Complete chapter 2 notes"></div><div><label>Due date</label><input id="taskDue" type="date"></div></div><button class="primary">Save task</button> <button type="button" class="small-btn" data-close="taskForm">Cancel</button></form></div>
+          <div class="panel"><div id="taskList"></div></div>
+        </section>
+        <section id="planner" class="section">
+          <div class="welcome"><div><h1>Study planner</h1><p>Record focused study sessions and build consistency.</p></div><button class="primary" id="addSessionOpen">+ Log study session</button></div>
+          <div class="panel hidden" id="sessionForm"><h3>Log a study session</h3><form class="inline-form" id="sessionAddForm"><div class="form-row"><div><label>Study activity</label><input required id="sessionName" placeholder="e.g. Revision — Computer Networks"></div><div><label>Duration (minutes)</label><input required id="sessionDuration" type="number" min="1" max="1440" placeholder="60"></div></div><button class="primary">Save session</button> <button type="button" class="small-btn" data-close="sessionForm">Cancel</button></form></div>
+          <div class="panel"><div class="panel-head"><h3>Recent study sessions</h3></div><div id="sessionList"></div></div>
+        </section>
+        <section id="goals" class="section">
+          <div class="welcome"><div><h1>Academic goals</h1><p>Set targets and track the commitments you make to yourself.</p></div><button class="primary" id="addGoalOpen">+ Add goal</button></div>
+          <div class="panel hidden" id="goalForm"><h3>Create a goal</h3><form class="inline-form" id="goalAddForm"><div class="form-row"><div><label>Goal</label><input required id="goalName" placeholder="e.g. Study 10 hours this week"></div><div><label>Target date</label><input id="goalDate" type="date"></div></div><button class="primary">Save goal</button> <button type="button" class="small-btn" data-close="goalForm">Cancel</button></form></div>
+          <div class="panel"><div id="goalList"></div></div>
+        </section>
+        <section id="resources" class="section">
+          <div class="welcome"><div><h1>Academic resources</h1><p>Explore trusted platforms for study materials, presentations and online learning.</p></div></div>
+          <div class="resource-note">These resources open on their official websites in a new tab. Brain Lab does not host or copy their content; access, accounts and any fees are managed by each platform.</div>
+          <div class="resource-grid">
+            <article class="resource-card">
+              <div class="resource-top"><div class="resource-icon">▤</div><div><h3>SlideShare</h3><span class="muted">Presentations & research</span></div></div>
+              <p>Discover academic presentations, slide decks and research-related materials shared by the community.</p>
+              <a class="small-btn" href="https://www.slideshare.net/" target="_blank" rel="noopener noreferrer">Visit SlideShare ↗</a>
+            </article>
+            <article class="resource-card">
+              <div class="resource-top"><div class="resource-icon">📚</div><div><h3>Studocu</h3><span class="muted">Notes & study guides</span></div></div>
+              <p>Explore lecture notes, study guides, summaries and other student learning materials.</p>
+              <a class="small-btn" href="https://www.studocu.com/" target="_blank" rel="noopener noreferrer">Visit Studocu ↗</a>
+            </article>
+            <article class="resource-card">
+              <div class="resource-top"><div class="resource-icon">🎓</div><div><h3>Alison</h3><span class="muted">Online courses</span></div></div>
+              <p>Find online courses to develop professional skills and expand your knowledge.</p>
+              <a class="small-btn" href="https://alison.com/" target="_blank" rel="noopener noreferrer">Visit Alison ↗</a>
+            </article>
+            <article class="resource-card">
+              <div class="resource-top"><div class="resource-icon">▦</div><div><h3>Google Classroom</h3><span class="muted">Classroom learning</span></div></div>
+              <p>Open Google Classroom to access classes, assignments and learning activities shared by your instructors.</p>
+              <a class="small-btn" href="https://classroom.google.com/" target="_blank" rel="noopener noreferrer">Visit Google Classroom ↗</a>
+            </article>
+          </div>
+        </section>
+      </div>
+    </main>
+  </section>
+  <div id="toast" class="toast hidden"></div>
+<script>
+  // Brain Lab Supabase frontend configuration.
+  // Publishable/anon keys are intended for browser use; protect data with RLS.
+  const SUPABASE_URL = "https://jnhwdeaavlvweqllomtb.supabase.co";
+  const SUPABASE_ANON_KEY = "sb_publishable_XJ23QJO7yFjUxu6BK9bpkA_k-dSSuJh";
+  const supabaseReady = Boolean(window.supabase && SUPABASE_URL.startsWith("https://") && SUPABASE_ANON_KEY.startsWith("sb_publishable_"));
+  const sb = supabaseReady ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+  const $ = id => document.getElementById(id);
+  const emptyData = () => ({courses:[],tasks:[],sessions:[],goals:[]});
+  let currentUser = null, data = emptyData(), appLoading = false;
+  function uid(){return crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2,12)}
+  function toast(msg){$("toast").textContent=msg;$("toast").classList.remove("hidden");setTimeout(()=>$("toast").classList.add("hidden"),2600)}
+  function showLanding(){$("landingScreen").classList.remove("hidden");$("authScreen").classList.add("hidden");$("appScreen").classList.add("hidden")}
+  function showAuth(){$("landingScreen").classList.add("hidden");$("authScreen").classList.remove("hidden");$("appScreen").classList.add("hidden")}
+  function showError(id,msg){$(id).textContent=msg}
+  function setBusy(buttonId,busy,label){const b=$(buttonId);if(!b)return;b.disabled=busy;if(busy)b.dataset.oldLabel=b.textContent;b.textContent=busy?label:(b.dataset.oldLabel||b.textContent)}
+  function handleDbError(error,context){console.error(context,error);toast((context||"Database error")+": "+(error?.message||"Please try again."))}
+
+  // Load each student's records from Supabase. RLS and user_id filters both apply.
+  async function loadCloudData(){
+    if(!sb||!currentUser) return;
+    const uid=currentUser.id;
+    const specs=[
+      ["courses","course_name"], ["tasks","title"],
+      ["study_sessions","subject"], ["academic_goals","goal_name"]
+    ];
+    const results=await Promise.all(specs.map(([table])=>sb.from(table).select("*").eq("user_id",uid)));
+    const failed=results.find(r=>r.error);
+    if(failed) throw failed.error;
+    const [courses,tasks,sessions,goals]=results.map(r=>r.data||[]);
+    data={
+      courses:courses.map(r=>({id:r.id,name:r.course_name,progress:Number(r.progress)||0})),
+      tasks:tasks.map(r=>({id:r.id,name:r.title,due:r.due_date||"",done:r.status==="completed"||r.status===true})),
+      sessions:sessions.map(r=>({id:r.id,name:r.subject,minutes:Number(r.duration_minutes)||0,date:r.study_date||r.created_at||new Date().toISOString()})),
+      goals:goals.map(r=>({id:r.id,name:r.goal_name,date:r.target_date||"",done:Boolean(r.completed)}))
+    };
+  }
+  async function refreshAndRender(){try{await loadCloudData();render()}catch(e){handleDbError(e,"Could not load your records")}}
+  async function insertRecord(table,record){const {error}=await sb.from(table).insert({...record,user_id:currentUser.id});if(error)throw error}
+  async function updateRecord(table,id,changes){const {error}=await sb.from(table).update(changes).eq("id",id).eq("user_id",currentUser.id);if(error)throw error}
+  async function deleteRecord(table,id){const {error}=await sb.from(table).delete().eq("id",id).eq("user_id",currentUser.id);if(error)throw error}
+
+  async function showApp(user){
+    if(!user||appLoading)return;
+    appLoading=true;currentUser=user;
+    $("landingScreen").classList.add("hidden");$("authScreen").classList.add("hidden");$("appScreen").classList.remove("hidden");
+    let name=user.user_metadata?.full_name||user.name||user.email?.split("@")[0]||"Student";
+    $("userName").textContent=name;$("welcomeTitle").textContent="Good day, "+name.split(" ")[0]+"!";$("avatar").textContent=name[0].toUpperCase();
+    $("todayDate").textContent=new Date().toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"});
+    try{await loadCloudData();render()}catch(e){handleDbError(e,"Unable to load Brain Lab data. Check that all table names, columns and RLS policies are correct.")}
+    finally{appLoading=false}
+  }
+
+  function openLoginFromLanding(){showAuth();$("signupForm").classList.add("hidden");$("loginForm").classList.remove("hidden");showError("loginError","")}
+  function openSignupFromLanding(){showAuth();$("loginForm").classList.add("hidden");$("signupForm").classList.remove("hidden");showError("signupError","")}
+  $("landingGetStarted").onclick=openSignupFromLanding;
+  $("landingLogin").onclick=openLoginFromLanding;
+  $("landingLoginTop").onclick=openLoginFromLanding;
+  const authBackHome = $("authBackHome");
+  if(authBackHome) authBackHome.onclick=showLanding;
+  $("showSignup").onclick=()=>{$("loginForm").classList.add("hidden");$("signupForm").classList.remove("hidden");showError("signupError","")};
+  $("showLogin").onclick=()=>{$("signupForm").classList.add("hidden");$("loginForm").classList.remove("hidden");showError("loginError","")};
+  async function signUp(){
+    const name=$("signupName").value.trim(),email=$("signupEmail").value.trim(),password=$("signupPassword").value;
+    if(!name||!email||password.length<6){showError("signupError","Enter your name, a valid email and a password of at least 6 characters.");return}
+    if(!sb){showError("signupError","Supabase is not configured. Check the project URL and publishable key.");return}
+    setBusy("signupBtn",true,"Creating account…");showError("signupError","");
+    try{const {data:result,error}=await sb.auth.signUp({email,password,options:{data:{full_name:name}}});if(error)throw error;
+      if(result.session)await showApp(result.user);else{showError("signupError","Account created. Check your email to confirm your address, then sign in.");$("showLogin").click()}
+    }catch(e){showError("signupError",e.message||"Could not create account.")}finally{setBusy("signupBtn",false)}
+  }
+  async function signIn(){
+    const email=$("loginEmail").value.trim();
+    const password=$("loginPassword").value;
+    if(!email||!password){
+      showError("loginError","Enter your email and password.");
+      return;
+    }
+    if(!sb){
+      showError("loginError","Supabase is not configured. Check the project URL and publishable key.");
+      return;
+    }
+    setBusy("loginBtn",true,"Signing in…");
+    showError("loginError","");
+    try{
+      const {data:result,error}=await sb.auth.signInWithPassword({email,password});
+      if(error)throw error;
+      await showApp(result.user);
+    }catch(e){
+      showError("loginError",e.message||"Could not sign in.");
+    }finally{
+      setBusy("loginBtn",false);
+    }
+  }
+
+  async function signOut(){
+    if(sb) await sb.auth.signOut();
+    currentUser=null;
+    data=emptyData();
+    showLanding();
+  }
+
+  $("signupBtn").onclick=signUp;
+  $("loginBtn").onclick=signIn;
+  $("logoutBtn").onclick=signOut;
+
+  function go(section){document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));$(section).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.section===section));$("pageTitle").textContent=({overview:"Overview",courses:"My courses",tasks:"My tasks",planner:"Study planner",goals:"Academic goals",resources:"Academic resources"})[section]}
+  document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>go(b.dataset.section));document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
+  document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>$(b.dataset.close).classList.add("hidden"));
+  function openForm(id){$(id).classList.remove("hidden")}
+  $("addCourseOpen").onclick=()=>openForm("courseForm");$("addTaskOpen").onclick=()=>openForm("taskForm");$("addSessionOpen").onclick=()=>openForm("sessionForm");$("addGoalOpen").onclick=()=>openForm("goalForm");
+
+  $("courseAddForm").onsubmit=async e=>{e.preventDefault();if(!currentUser)return;const record={course_name:$("courseName").value.trim(),progress:Math.min(100,Math.max(0,Number($("courseProgress").value)||0))};try{await insertRecord("courses",record);e.target.reset();$("courseProgress").value=0;$("courseForm").classList.add("hidden");await refreshAndRender();toast("Course saved to your account.")}catch(err){handleDbError(err,"Could not save course")}};
+  $("taskAddForm").onsubmit=async e=>{e.preventDefault();if(!currentUser)return;const record={title:$("taskName").value.trim(),due_date:$("taskDue").value||null,status:"pending"};try{await insertRecord("tasks",record);e.target.reset();$("taskForm").classList.add("hidden");await refreshAndRender();toast("Task saved to your account.")}catch(err){handleDbError(err,"Could not save task")}};
+  $("sessionAddForm").onsubmit=async e=>{e.preventDefault();if(!currentUser)return;const record={subject:$("sessionName").value.trim(),duration_minutes:Number($("sessionDuration").value),study_date:new Date().toISOString()};try{await insertRecord("study_sessions",record);e.target.reset();$("sessionForm").classList.add("hidden");await refreshAndRender();toast("Study session saved.")}catch(err){handleDbError(err,"Could not save study session")}};
+  $("goalAddForm").onsubmit=async e=>{e.preventDefault();if(!currentUser)return;const record={goal_name:$("goalName").value.trim(),target_date:$("goalDate").value||null,completed:false};try{await insertRecord("academic_goals",record);e.target.reset();$("goalForm").classList.add("hidden");await refreshAndRender();toast("Goal saved to your account.")}catch(err){handleDbError(err,"Could not save goal")}};
+
+  function escapeHTML(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+  function progressMarkup(name,p){return `<div class="progress-row"><div class="progress-meta"><strong>${escapeHTML(name)}</strong><span>${p}%</span></div><div class="bar"><i style="width:${p}%"></i></div></div>`}
+  function render(){
+    const completed=data.tasks.filter(t=>t.done).length,hours=data.sessions.reduce((n,s)=>n+s.minutes,0)/60,goalsDone=data.goals.filter(g=>g.done).length;
+    $("statCourses").textContent=data.courses.length;$("statCompleted").textContent=completed;$("taskSub").textContent=data.tasks.length+" tasks in total";$("statHours").textContent=hours.toFixed(1)+"h";$("statGoals").textContent=goalsDone;
+    $("overviewCourses").innerHTML=data.courses.length?data.courses.slice(0,4).map(c=>progressMarkup(c.name,c.progress)).join(""):'<div class="empty">No courses yet. Add your first course.</div>';
+    $("overviewTasks").innerHTML=data.tasks.filter(t=>!t.done).slice(0,5).map(t=>`<div class="task"><input type="checkbox" data-task="${t.id}"><span class="task-name">${escapeHTML(t.name)}</span><span class="tag">Pending</span></div>`).join("")||'<div class="empty">You have no pending tasks.</div>';
+    $("overviewGoals").innerHTML=data.goals.slice(0,4).map(g=>`<div class="task"><span class="task-name">${escapeHTML(g.name)}</span><span class="tag ${g.done?"done":""}">${g.done?"Achieved":"In progress"}</span></div>`).join("")||'<div class="empty">No goals added yet.</div>';
+    $("courseList").innerHTML=data.courses.map(c=>`
+  <div class="course-card">
+    <div class="panel-head">
+      <div class="course-title">${escapeHTML(c.name)}</div>
+      <div style="display:flex;gap:8px">
+        <button class="small-btn" data-course-edit="${c.id}">
+          Update progress
+        </button>
+        <button class="small-btn" data-delete-course="${c.id}" style="color:#d84d5b">
+          Delete
+        </button>
+      </div>
+    </div>
+    ${progressMarkup("Completion",c.progress)}
+  </div>
+`).join("")||'<div class="empty">No courses added yet.</div>';
+    $("taskList").innerHTML=data.tasks.map(t=>`<div class="task ${t.done?"done":""}"><input type="checkbox" data-task="${t.id}" ${t.done?"checked":""}><span class="task-name">${escapeHTML(t.name)}</span><span class="muted">${t.due?new Date(t.due+"T00:00:00").toLocaleDateString():"No due date"}</span><button class="small-btn" data-delete-task="${t.id}">Delete</button></div>`).join("")||'<div class="empty">No tasks yet. Add a task to get started.</div>';
+    $("sessionList").innerHTML=data.sessions.map(s=>`<div class="task"><span class="task-name">${escapeHTML(s.name)}</span><span class="muted">${s.minutes} min · ${new Date(s.date).toLocaleDateString()}</span></div>`).join("")||'<div class="empty">No study sessions recorded yet.</div>';
+    $("goalList").innerHTML=data.goals.map(g=>`<div class="task ${g.done?"done":""}"><input type="checkbox" data-goal="${g.id}" ${g.done?"checked":""}><span class="task-name">${escapeHTML(g.name)}</span><span class="muted">${g.date||"No target date"}</span></div>`).join("")||'<div class="empty">No goals yet. Add your first academic goal.</div>';
+    const days=["M","T","W","T","F","S","S"],vals=Array(7).fill(0);data.sessions.forEach(s=>{const d=new Date(s.date),idx=(d.getDay()+6)%7;vals[idx]+=s.minutes/60});const max=Math.max(1,...vals);
+    $("weekChart").innerHTML=days.map((d,i)=>`<div style="flex:1;text-align:center;height:100%;display:flex;flex-direction:column;justify-content:end;align-items:center;gap:7px"><div title="${vals[i].toFixed(1)} hours" style="width:100%;max-width:28px;height:${Math.max(5,vals[i]/max*105)}px;background:${vals[i]?"#a4adc7":"#e5e4e4"};border-radius:5px 5px 2px 2px"></div><span class="muted">${d}</span></div>`).join("");
+    document.querySelectorAll("[data-task]").forEach(el=>el.onchange=async()=>{try{await updateRecord("tasks",el.dataset.task,{status:el.checked?"completed":"pending"});await refreshAndRender()}catch(err){handleDbError(err,"Could not update task")}});
+    document.querySelectorAll("[data-goal]").forEach(el=>el.onchange=async()=>{try{await updateRecord("academic_goals",el.dataset.goal,{completed:el.checked});await refreshAndRender()}catch(err){handleDbError(err,"Could not update goal")}});
+    document.querySelectorAll("[data-delete-task]").forEach(el=>{
+      el.onclick=async()=>{
+        try{
+          await deleteRecord("tasks",el.dataset.deleteTask);
+          await refreshAndRender();
+          toast("Task deleted.");
+        }catch(err){
+          handleDbError(err,"Could not delete task");
+        }
+      };
+    });
+
+    document.querySelectorAll("[data-delete-course]").forEach(el=>{
+      el.onclick=async()=>{
+        const c=data.courses.find(x=>String(x.id)===el.dataset.deleteCourse);
+        if(!c)return;
+        if(!confirm(`Are you sure you want to delete "${c.name}"?`))return;
+        el.disabled=true;
+        try{
+          await deleteRecord("courses",c.id);
+          await refreshAndRender();
+          toast("Course deleted successfully.");
+        }catch(err){
+          el.disabled=false;
+          handleDbError(err,"Could not delete course");
+        }
+      };
+    });
+
+    document.querySelectorAll("[data-course-edit]").forEach(el=>{
+      el.onclick=async()=>{
+        const c=data.courses.find(x=>String(x.id)===el.dataset.courseEdit);
+        if(!c)return;
+        const v=prompt("Update course progress (0–100):",c.progress);
+        if(v!==null&&v.trim()!==""&&Number.isFinite(Number(v))&&Number(v)>=0&&Number(v)<=100){
+          try{
+            await updateRecord("courses",c.id,{progress:Number(v)});
+            await refreshAndRender();
+            toast("Course progress updated.");
+          }catch(err){
+            handleDbError(err,"Could not update course");
+          }
+        }
+      };
+    });
+  }
+
+  $("authNotice").textContent=supabaseReady?"Brain Lab cloud authentication and database connection are configured.":"Supabase configuration is missing. Contact the project administrator.";
+  showLanding();
+  if(sb){sb.auth.getSession().then(({data:{session},error})=>{if(error)console.error(error);if(session)showApp(session.user)});sb.auth.onAuthStateChange((event,session)=>{if(event==="SIGNED_IN"&&session&&!currentUser)showApp(session.user);if(event==="SIGNED_OUT"){currentUser=null;data=emptyData();showAuth()}})}
+</script>
+</body>
+</html>
