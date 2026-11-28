@@ -645,7 +645,7 @@
       <div class="visual-foot">STUDENT PROGRESS TRACKING SYSTEM · MVP</div>
     </div>
     <div class="auth-panel">
-      <div class="auth-card">
+      <button type="button" class="auth-back" id="authBackHome">   ← Back to home </button>
         <button type="button" class="auth-back" id="authBackHome">
   ← Back to home
 </button>
@@ -1178,7 +1178,14 @@
         if(session.user?.email_confirmed_at)showApp(session.user);
         else{pendingVerificationEmail=session.user?.email||"";showPendingVerification(pendingVerificationEmail,"Please verify your email address before accessing Brain Lab.")}
       }
-      if(event==="SIGNED_OUT"){currentUser=null;data=emptyData();if(!$("verificationPanel").classList.contains("hidden"))return;showAuth()}
+     if(event==="SIGNED_OUT"){
+  currentUser=null;
+  data=emptyData();
+
+  if(!$("verificationPanel").classList.contains("hidden")) return;
+
+  showLanding();
+}
     });
   }
 </script>
